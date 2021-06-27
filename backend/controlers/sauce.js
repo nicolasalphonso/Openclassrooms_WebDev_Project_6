@@ -111,16 +111,13 @@ exports.likesManagement = (req, res, next) => {
     .then((sauce) => {
       const usersWhoLiked = sauce.usersLiked;
       const usersWhoDisliked = sauce.usersDisliked;
-      updateValues = {
+       updateValues = {
         likes: 0,
         dislikes: 0,
         usersLiked: usersWhoLiked,
         usersDisliked: usersWhoDisliked,
       };
-      console.log(updateValues);
-      updateValues.usersLiked.push("Toto");
-      console.log(updateValues);
-      updateValues.usersLiked.pull("Toto");
+      
       console.log(updateValues);
       console.log(userId);
       switch (like) {
@@ -132,7 +129,7 @@ exports.likesManagement = (req, res, next) => {
           }
           // s'il est dans la liste des unlikers on l'enlève de la liste des unlikers et on enlève un dislike
           if (usersWhoDisliked.indexOf(userId) !== -1) {
-            updateValues.usersLiked.pull(userId);
+            updateValues.usersDisliked.pull(userId);
           }
           break;
 
@@ -167,6 +164,9 @@ exports.likesManagement = (req, res, next) => {
       // Nouveau nombre de likes et dislikes
       updateValues.likes = updateValues.usersLiked.length;
       updateValues.dislikes = updateValues.usersDisliked.length;
+      console.log(updateValues);
+
+    
 
       // Update de la sauce
       Sauce.updateOne({ _id: req.params.id }, updateValues)
