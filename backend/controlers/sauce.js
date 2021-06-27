@@ -117,9 +117,7 @@ exports.likesManagement = (req, res, next) => {
         usersLiked: usersWhoLiked,
         usersDisliked: usersWhoDisliked,
       };
-      
-      console.log(updateValues);
-      console.log(userId);
+
       switch (like) {
         // on étudie 3 cas
         case 0: // l'utilisateur a annulé son avis
@@ -164,10 +162,7 @@ exports.likesManagement = (req, res, next) => {
       // Nouveau nombre de likes et dislikes
       updateValues.likes = updateValues.usersLiked.length;
       updateValues.dislikes = updateValues.usersDisliked.length;
-      console.log(updateValues);
-
-    
-
+ 
       // Update de la sauce
       Sauce.updateOne({ _id: req.params.id }, updateValues)
         .then(() =>
